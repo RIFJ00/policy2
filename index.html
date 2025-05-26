@@ -216,42 +216,47 @@
             // X-axis adjustments (Effect)
             switch (party.name) {
                 case 'れいわ新選組':
-                    plottedX = party.x - 0.5; // Lower effect
+                    plottedX = party.x - 0.5; 
                     break;
                 case '日本共産党':
-                    plottedX = party.x - 0.4; // Lower effect
+                    plottedX = party.x - 0.4; 
                     break;
                 case '自由民主党':
-                    plottedX = party.x - 0.0; // Slightly higher effect
+                    plottedX = party.x - 0.0; 
                     break;
                 case '国民民主党':
-                    plottedX = party.x + 0.2; // Higher effect
+                    plottedX = party.x + 0.2; 
                     break;
                 case '日本維新の会':
-                    plottedX = party.x + 0.2; // Higher effect
+                    plottedX = party.x + 0.2; 
                     break;
                 case '立憲民主党':
-                    plottedX = party.x - 0.0; // Higher effect
+                    plottedX = party.x - 0.0; 
                     break;
                 case '公明党':
-                    plottedX = party.x - 0.25; // Default adjustment for Komeito X
+                    plottedX = party.x - 0.25; 
                     break;
-                default: // Should not be reached if all parties are covered
+                default: 
                     plottedX = party.x - 0.25; 
             }
 
             // Y-axis adjustments (Fiscal Burden)
             switch (party.name) {
                 case '立憲民主党':
-                    plottedY = party.y - 0.0; // Higher fiscal burden
+                    plottedY = party.y - 0.0; // Higher fiscal burden: 7.0
                     break;
-                // For other parties, apply general rules based on their original Y value
-                default:
-                    if (party.y >= 8.0) { // High burden group (JIP, DPFP, JCP, Reiwa)
+                case '公明党': 
+                    plottedY = party.y - 0.3; // Original 6.5 -> Plotted 6.2
+                    break;
+                case '自由民主党': 
+                    plottedY = party.y - 0.9; // Original 6.8 -> Plotted 5.9
+                    break;
+                default: // General rules for other parties
+                    if (party.y >= 8.0) { // High burden (JIP: 8.2->7.7, DPFP: 9.2->8.7, JCP: 8.0->7.5, Reiwa: 10.0->9.5)
                         plottedY = party.y - 0.5;
-                    } else if (party.y < 6.0) { // Low burden group (if any)
+                    } else if (party.y < 6.0) { // Low burden (none in current data)
                         plottedY = party.y - 1.0;
-                    } else { // Medium burden group (6.0 <= party.y < 8.0) (LDP, Komeito)
+                    } else { // Medium burden (6.0 <= party.y < 8.0) - This won't be hit by current data if LDP/Komeito are handled above.
                         plottedY = party.y - 0.75;
                     }
             }
